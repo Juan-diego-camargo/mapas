@@ -1,0 +1,75 @@
+class Usuario:
+    def __init__(self, nombre_completo, nickname, clave, tipo, fecha_creacion):
+        self.nombre_completo = nombre_completo
+        self.nickname = nickname
+        self.clave = clave
+        self.tipo = tipo
+        self.fecha_creacion = fecha_creacion
+        self.usuario_map = {
+            'nombre_completo': nombre_completo,
+            'nickname': nickname,
+            'clave': clave,
+            'tipo': tipo,
+            'fecha_creacion': fecha_creacion
+        }
+
+    def __str__(self):
+        return f"Nombre Completo: {self.nombre_completo}, Nickname: {self.nickname}, Tipo: {self.tipo}, Fecha de Creación: {self.fecha_creacion}"
+
+
+usuarios = {}
+
+def agregar_usuario():
+    nombre_completo = input("Ingrese el nombre completo: ")
+    nickname = input("Ingrese el nickname: ")
+    clave = input("Ingrese la clave: ")
+    tipo = input("Ingrese el tipo (admin/usuario): ")
+    fecha_creacion = input("Ingrese la fecha de creación (dd/mm/aaaa): ")
+    
+    if nickname in usuarios:
+        print("El nickname ya existe. Intente con otro.")
+    else:
+        usuario = Usuario(nombre_completo, nickname, clave, tipo, fecha_creacion)
+        usuarios[nickname] = usuario
+        print("Usuario agregado con éxito.")
+
+def buscar_usuario():
+    nickname = input("Ingrese el nickname del usuario a buscar: ")
+    if nickname in usuarios:
+        usuario = usuarios[nickname]
+        print(usuario)
+    else:
+        print("Usuario no encontrado.")
+
+def eliminar_usuario():
+    nickname = input("Ingrese el nickname del usuario a eliminar: ")
+    if nickname in usuarios:
+        del usuarios[nickname]
+        print("Usuario eliminado con éxito.")
+    else:
+        print("Usuario no encontrado.")
+
+def menu():
+    while True:
+        print("\nMenú:")
+        print("1. Agregar Usuario")
+        print("2. Buscar Usuario")
+        print("3. Eliminar Usuario")
+        print("4. Salir")
+        
+        opcion = input("Seleccione una opción (1-4): ")
+        
+        if opcion == '1':
+            agregar_usuario()
+        elif opcion == '2':
+            buscar_usuario()
+        elif opcion == '3':
+            eliminar_usuario()
+        elif opcion == '4':
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+if __name__ == "__main__":
+    menu()
